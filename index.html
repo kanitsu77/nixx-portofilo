@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nixx — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#09090b;color:#fafafa;font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;}
+.bg-orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0;}
+.orb1{width:600px;height:600px;left:-200px;top:-200px;background:radial-gradient(circle,rgba(139,92,246,.2),transparent 70%);filter:blur(80px);}
+.orb2{width:500px;height:500px;right:-150px;top:50%;background:radial-gradient(circle,rgba(59,130,246,.15),transparent 70%);filter:blur(80px);}
+.orb3{width:400px;height:400px;left:30%;bottom:-100px;background:radial-gradient(circle,rgba(236,72,153,.12),transparent 70%);filter:blur(80px);}
+.wrap{max-width:900px;margin:auto;padding:40px 24px;position:relative;z-index:5;}
+.hero{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;min-height:90vh;padding:60px 0;}
+.hero-left{display:flex;flex-direction:column;gap:20px;}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);color:#c4b5fd;font-size:12px;font-family:'JetBrains Mono',monospace;width:fit-content;animation:fadeUp .5s ease both;}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:#a855f7;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.3);}}
+h1{font-size:clamp(42px,7vw,72px);font-weight:800;line-height:1.05;letter-spacing:-2px;animation:fadeUp .6s .1s ease both;}
+h1 .grad{background:linear-gradient(135deg,#a78bfa,#60a5fa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.tagline{font-size:16px;color:#9ca3af;line-height:1.8;max-width:480px;animation:fadeUp .6s .2s ease both;}
+.socials{display:flex;gap:10px;flex-wrap:wrap;animation:fadeUp .6s .3s ease both;}
+.soc-btn{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:#d1d5db;font-size:13px;font-weight:600;text-decoration:none;transition:.3s;}
+.soc-btn:hover{background:rgba(139,92,246,.12);border-color:rgba(139,92,246,.35);color:#c4b5fd;transform:translateY(-2px);}
+.soc-btn i{font-size:16px;}
+.soc-btn.offline{opacity:.5;cursor:default;}
+.soc-btn.offline:hover{transform:none;background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:#d1d5db;}
+.hero-right{display:flex;flex-direction:column;align-items:center;gap:16px;animation:fadeUp .7s .2s ease both;}
+.avatar-wrap{position:relative;width:220px;height:220px;}
+.avatar-ring{position:absolute;inset:-6px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#2563eb,#db2777);animation:spin 6s linear infinite;opacity:.7;}
+.avatar-ring::before{content:"";position:absolute;inset:3px;background:#09090b;border-radius:50%;}
+.avatar{position:relative;width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid #09090b;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.avatar-status{display:flex;align-items:center;gap:7px;padding:8px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:999px;font-size:12px;color:#9ca3af;}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;animation:pulse 2s infinite;}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);margin:20px 0;}
+.section{margin-bottom:80px;animation:fadeUp .6s ease both;}
+.sec-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b7280;letter-spacing:3px;text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;gap:12px;}
+.sec-label::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.06);}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;}
+.skill-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:18px 16px;text-align:center;transition:.3s;cursor:default;}
+.skill-card:hover{background:rgba(139,92,246,.08);border-color:rgba(139,92,246,.3);transform:translateY(-4px);}
+.skill-icon{font-size:26px;margin-bottom:10px;display:block;}
+.skill-name{font-size:13px;font-weight:600;color:#e5e7eb;margin-bottom:4px;}
+.skill-level{font-size:11px;color:#6b7280;font-family:'JetBrains Mono',monospace;}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
+.proj-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:22px;transition:.35s;position:relative;overflow:hidden;}
+.proj-card::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(139,92,246,.06),transparent);opacity:0;transition:.3s;}
+.proj-card:hover{border-color:rgba(139,92,246,.3);transform:translateY(-5px);}
+.proj-card:hover::before{opacity:1;}
+.proj-tag{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:999px;font-size:11px;font-weight:600;font-family:'JetBrains Mono',monospace;margin-bottom:14px;}
+.tag-js{background:rgba(247,223,30,.1);color:#fde047;border:1px solid rgba(247,223,30,.2);}
+.tag-node{background:rgba(34,197,94,.1);color:#86efac;border:1px solid rgba(34,197,94,.2);}
+.tag-html{background:rgba(239,68,68,.1);color:#fca5a5;border:1px solid rgba(239,68,68,.2);}
+.proj-title{font-size:17px;font-weight:700;margin-bottom:8px;}
+.proj-desc{font-size:13px;color:#9ca3af;line-height:1.7;margin-bottom:16px;}
+.proj-footer{display:flex;align-items:center;gap:12px;font-size:12px;color:#6b7280;}
+.proj-footer i{font-size:14px;}
+.contact-box{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:24px;padding:40px;text-align:center;}
+.contact-box h2{font-size:32px;font-weight:800;margin-bottom:12px;}
+.contact-box p{color:#9ca3af;font-size:15px;margin-bottom:28px;line-height:1.7;}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
+.cta{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:14px;background:linear-gradient(135deg,#7c3aed,#2563eb);color:white;font-weight:700;font-size:15px;border:none;cursor:pointer;transition:.3s;font-family:'Syne',sans-serif;text-decoration:none;}
+.cta:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(124,58,237,.3);}
+.cta.secondary{background:rgba(255,255,255,.06);}
+.cta.secondary:hover{box-shadow:0 12px 30px rgba(255,255,255,.06);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+footer{text-align:center;padding:30px 0;color:#374151;font-size:12px;font-family:'JetBrains Mono',monospace;}
+::-webkit-scrollbar{width:8px;}
+::-webkit-scrollbar-track{background:#09090b;}
+::-webkit-scrollbar-thumb{background:#232329;border-radius:999px;}
+::-webkit-scrollbar-thumb:hover{background:#35353d;}
+@media(max-width:640px){
+  .hero{grid-template-columns:1fr;text-align:center;min-height:unset;padding:40px 0;}
+  .hero-right{order:-1;}
+  .hero-left{align-items:center;}
+  .socials{justify-content:center;}
+  .avatar-wrap{width:170px;height:170px;}
+  .contact-box{padding:28px 20px;}
+  .contact-box h2{font-size:26px;}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+<div class="bg-orb orb3"></div>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="hero-left">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Available for work
+      </div>
+      <h1>Hi, I'm<br><span class="grad">Nixx</span></h1>
+      <p class="tagline">Independent developer & creator. Membangun REST API, WhatsApp bot, dan browser game dari nol — langsung dari layar HP.</p>
+
+      <div class="socials">
+        <a class="soc-btn" href="https://github.com/Nixx-Core" target="_blank" rel="noopener">
+          <i class="ti ti-brand-github" aria-hidden="true"></i> GitHub
+        </a>
+        <a class="soc-btn" href="https://wa.me/6281410502451" target="_blank" rel="noopener">
+          <i class="ti ti-brand-whatsapp" aria-hidden="true"></i> WhatsApp
+        </a>
+        <a class="soc-btn" href="https://whatsapp.com/channel/0029VbCIBAh002T45gbGJw2h" target="_blank" rel="noopener">
+          <i class="ti ti-speakerphone" aria-hidden="true"></i> WA Channel
+        </a>
+        <a class="soc-btn" href="https://t.me/Nixx" target="_blank" rel="noopener">
+          <i class="ti ti-brand-telegram" aria-hidden="true"></i> Telegram
+        </a>
+        <a class="soc-btn" href="https://t.me/nixxjs" target="_blank" rel="noopener">
+          <i class="ti ti-speakerphone" aria-hidden="true"></i> TG Channel
+        </a>
+        <a class="soc-btn offline" href="https://core-api.my.id" target="_blank" rel="noopener">
+          <i class="ti ti-world" aria-hidden="true"></i> core-api.my.id
+        </a>
+      </div>
+
+    </div>
+    <div class="hero-right">
+      <div class="avatar-wrap">
+        <div class="avatar-ring"></div>
+        <img class="avatar" src="https://c.termai.cc/i151/LQ7ut.jpg" alt="Foto profil Nixx">
+      </div>
+      <div class="avatar-status">
+        <span class="status-dot"></span>
+        Online & active
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section">
+    <div class="sec-label">Skills</div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <span class="skill-icon">⚡</span>
+        <div class="skill-name">JavaScript</div>
+        <div class="skill-level">Advanced</div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">🟢</span>
+        <div class="skill-name">Node.js</div>
+        <div class="skill-level">Advanced</div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">🌐</span>
+        <div class="skill-name">HTML/CSS</div>
+        <div class="skill-level">Advanced</div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">🤖</span>
+        <div class="skill-name">WA Bot</div>
+        <div class="skill-level">Expert</div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">🎨</span>
+        <div class="skill-name">Canvas</div>
+        <div class="skill-level">Advanced</div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">🔧</span>
+        <div class="skill-name">REST API</div>
+        <div class="skill-level">Advanced</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sec-label">Projects</div>
+    <div class="proj-grid">
+      <div class="proj-card">
+        <div class="proj-tag tag-js">JavaScript</div>
+        <div class="proj-title">Nixx Bot</div>
+        <div class="proj-desc">Bot WhatsApp berbasis Baileys dengan feature card visual render canvas dan plugin scraper/downloader.</div>
+        <div class="proj-footer">
+          <i class="ti ti-brand-whatsapp" aria-hidden="true"></i> WhatsApp Bot
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-tag tag-node">Node.js</div>
+        <div class="proj-title">core.api</div>
+        <div class="proj-desc">Platform dokumentasi & registry REST API, deploy di Vercel dengan endpoint YouTube, Facebook, MediaFire, dan lainnya.</div>
+        <div class="proj-footer">
+          <i class="ti ti-server-2" aria-hidden="true"></i> core-api.my.id
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-tag tag-html">HTML</div>
+        <div class="proj-title">Telegram Bot + Pterodactyl</div>
+        <div class="proj-desc">Bot Telegram dengan integrasi panel Pterodactyl, masih dalam pengembangan.</div>
+        <div class="proj-footer">
+          <i class="ti ti-brand-telegram" aria-hidden="true"></i> In progress
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="contact-box">
+      <h2>Let's work together 🚀</h2>
+      <p>Punya project atau ide menarik? Jangan ragu untuk reach out.<br>Saya selalu terbuka untuk kolaborasi baru.</p>
+      <div class="cta-row">
+        <a class="cta" href="https://wa.me/6281410502451" target="_blank" rel="noopener">
+          <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>
+          Chat WhatsApp
+        </a>
+        <a class="cta secondary" href="https://t.me/Nixx" target="_blank" rel="noopener">
+          <i class="ti ti-brand-telegram" aria-hidden="true"></i>
+          Chat Telegram
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    crafted with ♥ by Nixx &nbsp;·&nbsp; 2026
+  </footer>
+
+</div>
+
+</body>
+</html>
